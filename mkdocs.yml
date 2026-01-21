@@ -1,0 +1,26 @@
+site_name: Wobsongo Verify
+site_description: Automated Claim Verification Framework for DPGs
+site_url: https://kairosedubf.github.io/wobsongo-verify/
+docs_dir: docs
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Quick Start: guides/quickstart.md
+      - Installation: guides/installation.md
+  - Governance:
+      - Project Charter: governance/PROJECT_CHARTER.md
+      - Contributing: governance/CONTRIBUTING.md
+      - Code of Conduct: governance/CODE_OF_CONDUCT.md
+  - API Reference:
+      - The Judge: api/judge.md
+      - Retrievers: api/retrievers.md
+
+plugins:
+  - search
