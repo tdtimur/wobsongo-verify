@@ -26,3 +26,5 @@ This project is the core engine of the commercial Wobsongo Platform. KAIROS is c
 - **Open Source:** Apache 2.0 License.
 - **Open Standards:** Uses JSON for data interchange and standard SQL/Vector interfaces.
 - **Do No Harm:** The system includes safety guardrails in the default prompts to prevent the generation of harmful content.
+- **Licensing Strategy:** **Permissive (Apache 2.0)**.
+  _Reasoning:_ We chose a permissive license to maximize adoption by governments, NGOs, and private sector partners. This allows the "Wobsongo Verify" engine to be integrated into diverse software ecosystems (both open and proprietary) without legal friction, ensuring the widest possible impact for SDG 3.
