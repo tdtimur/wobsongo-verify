@@ -68,7 +68,8 @@ ruff check . && ruff format .
 
 # Pull Request Process
 
-- Clone/fork the repo.
+- Clone/fork the repo. We recommend forking to your own GitHub account and cloning locally.
+- Take on an issue or start a new feature. If you want to work on an existing issue, comment on it to let others know you're working on it.
 - Create a new branch for your feature: `git checkout -b feature/my-new-feature`
 - Commit your changes using clear messages: `git commit -m "feat(vector): add Qdrant support to Retriever"`
 - Push to your branch: `git push origin feature/my-new-feature`
