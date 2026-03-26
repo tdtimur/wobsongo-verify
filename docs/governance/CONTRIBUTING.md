@@ -15,7 +15,7 @@ git clone [https://github.com/kairosedubf/wobsongo-verify.git](https://github.co
 cd wobsongo-verify
 ```
 
-## Set Up Environment
+## 2. Set Up Environment
 
 We use `uv` for dependency management. Install the dependencies with:
 
@@ -23,12 +23,40 @@ We use `uv` for dependency management. Install the dependencies with:
 uv install
 ```
 
-## 3. Run Tests
+## 3. Quality Assurance
 
-Ensure everything is working correctly before you start:
+All PRs must include tests and maintain **at least 80% line coverage**.
 
 ```bash
+# Run the full suite
 pytest tests/
+
+# Run with coverage report
+pytest --cov=wobsongo_verify --cov-report=term-missing tests/
+```
+
+**Test conventions:**
+
+- File names: `test_<module>.py` — one file per source module
+- Fixtures: define shared fixtures in `tests/conftest.py`
+- Test data: use `tests/data/` only — never real datasets
+
+**Unit vs. integration tests:** Mark tests that call live external services with `@pytest.mark.integration` so they can be skipped in fast local runs:
+
+```python
+@pytest.mark.integration
+def test_retriever_queries_qdrant():
+    ...
+```
+
+```bash
+pytest tests/ -m "not integration"   # unit tests only (default in CI)
+```
+
+**Linting:** Run before opening a PR — CI will reject on failures:
+
+```bash
+ruff check . && ruff format .
 ```
 
 # Data Privacy & Safety Policy
@@ -40,11 +68,14 @@ pytest tests/
 
 # Pull Request Process
 
-- Create a new branch for your feature: git checkout -b feature/my-new-feature
-- Commit your changes using clear messages: git commit -m "Add Qdrant support to Retriever"
-- Push to your branch: git push origin feature/my-new-feature
+- Clone/fork the repo.
+- Create a new branch for your feature: `git checkout -b feature/my-new-feature`
+- Commit your changes using clear messages: `git commit -m "feat(vector): add Qdrant support to Retriever"`
+- Push to your branch: `git push origin feature/my-new-feature`
 - Open a Pull Request against the main branch.
 - Wait for a maintainer to review. We aim to review all PRs within 72 hours.
+- Make sure that all checks pass (tests, linting, coverage) in GitHub Actions.
+- Once you get an approval, one of the project maintainers will merge your PR.
 
 # Reporting Bugs
 
