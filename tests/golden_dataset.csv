@@ -1,0 +1,4 @@
+claim,expected_verdict,expected_evidence_source,expected_taxonomy_path
+"Vaccines cause sterility.",REFUTED,WHO guidelines,health.vaccines
+"The earth is flat.",REFUTED,NASA/ESA observational data,science.astronomy
+"Lemon water cures cancer.",REFUTED,CDC oncology database,health.oncology
