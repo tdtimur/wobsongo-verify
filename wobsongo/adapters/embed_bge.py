@@ -26,8 +26,8 @@ class BGEEmbedder:
     def _load_model(self) -> object:
         if self._model is None:
             try:
-                from sentence_transformers import (
-                    SentenceTransformer,  # type: ignore[import-not-found]
+                from sentence_transformers import (  # type: ignore[import-not-found]
+                    SentenceTransformer,
                 )
             except ImportError as e:
                 raise RuntimeError(

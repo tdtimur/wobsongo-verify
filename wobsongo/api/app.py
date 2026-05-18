@@ -8,13 +8,18 @@ Routes:
   POST /api/v1/ingest   — ingest a markdown document
 
 PipelineController injected via Litestar dependency injection.
-Adapters wired at app startup using SQLiteRepository + StubLLMClient + StubEmbedder.
-Real adapters (BGEEmbedder, OpenAI) swapped in via config/env later.
+
+Adapter selection via environment variables:
+  WOBSONGO_LLM      — "openai" (default: stub)
+  WOBSONGO_EMBEDDER — "bge"    (default: stub)
+  WOBSONGO_DB_PATH  — path to SQLite file (default: wobsongo.db)
+  OPENAI_API_KEY    — required when WOBSONGO_LLM=openai
 """
 
 from __future__ import annotations
 
 import dataclasses
+import os
 from dataclasses import dataclass
 from uuid import uuid4
 
@@ -50,7 +55,7 @@ class IngestResponse:
 
 
 # ------------------------------------------------------------------
-# Stub embedder (swappable via DI later)
+# Stub embedder (used when WOBSONGO_EMBEDDER != "bge")
 # ------------------------------------------------------------------
 
 
@@ -60,15 +65,31 @@ class _StubEmbedder:
 
 
 # ------------------------------------------------------------------
-# Dependency factory
+# Dependency factory — adapter selection via env vars
 # ------------------------------------------------------------------
 
 
 def make_controller() -> PipelineController:
-    repo = SQLiteRepository("wobsongo.db")
-    llm = StubLLMClient()
-    embedder = _StubEmbedder()
-    return PipelineController(repo=repo, llm=llm, embedder=embedder)
+    db_path = os.environ.get("WOBSONGO_DB_PATH", "wobsongo.db")
+    repo = SQLiteRepository(db_path)
+
+    llm_choice = os.environ.get("WOBSONGO_LLM", "stub").lower()
+    if llm_choice == "openai":
+        from wobsongo.adapters.llm_openai import OpenAILLMClient  # lazy import
+
+        llm: object = OpenAILLMClient()
+    else:
+        llm = StubLLMClient()
+
+    embed_choice = os.environ.get("WOBSONGO_EMBEDDER", "stub").lower()
+    if embed_choice == "bge":
+        from wobsongo.adapters.embed_bge import BGEEmbedder  # lazy import
+
+        embedder: object = BGEEmbedder()
+    else:
+        embedder = _StubEmbedder()
+
+    return PipelineController(repo=repo, llm=llm, embedder=embedder)  # type: ignore[arg-type]
 
 
 # ------------------------------------------------------------------

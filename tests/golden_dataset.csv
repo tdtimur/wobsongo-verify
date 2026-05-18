@@ -2,3 +2,50 @@ claim,expected_verdict,expected_evidence_source,expected_taxonomy_path
 "Vaccines cause sterility.",REFUTED,WHO guidelines,health.vaccines
 "The earth is flat.",REFUTED,NASA/ESA observational data,science.astronomy
 "Lemon water cures cancer.",REFUTED,CDC oncology database,health.oncology
+"COVID-19 vaccines contain microchips.",REFUTED,WHO/FDA regulatory filings,health.vaccines
+"Drinking bleach cures COVID-19.",REFUTED,CDC/WHO emergency guidelines,health.infectious_disease
+"5G towers spread COVID-19.",REFUTED,WHO/ITU electromagnetic research,health.infectious_disease
+"Ivermectin is an approved COVID-19 treatment.",REFUTED,FDA/EMA clinical guidance,health.infectious_disease
+"The MMR vaccine causes autism.",REFUTED,Cochrane systematic review,health.vaccines
+"HIV can be transmitted by casual contact.",REFUTED,CDC HIV transmission guidelines,health.infectious_disease
+"Antibiotics are effective against viral infections.",REFUTED,WHO antibiotic resistance report,health.pharmacology
+"Sugar directly causes diabetes.",REFUTED,ADA clinical standards,health.endocrinology
+"Blood type determines personality.",REFUTED,APA psychology research,health.psychology
+"Eating carrots improves night vision in normal adults.",REFUTED,NIH vision research,health.nutrition
+"Humans only use 10% of their brains.",REFUTED,NIH neuroscience overview,science.neuroscience
+"We lose most body heat through our heads.",REFUTED,US Army research on heat loss,science.physiology
+"Goldfish have a 3-second memory.",REFUTED,Animal cognition research literature,science.zoology
+"Lightning never strikes the same place twice.",REFUTED,NOAA lightning data,science.meteorology
+"Vitamin C megadoses prevent the common cold.",REFUTED,Cochrane review on vitamin C,health.nutrition
+"Homeopathic remedies are more effective than placebo.",REFUTED,NHMRC systematic review,health.alternative_medicine
+"Sunscreen causes cancer.",REFUTED,WHO/IARC UV radiation research,health.oncology
+"Eating late at night causes weight gain independent of calories.",REFUTED,NIH metabolic research,health.nutrition
+"Detox diets remove toxins from the body.",REFUTED,BDA dietetics review,health.nutrition
+"Drinking 8 glasses of water per day is scientifically required.",REFUTED,EFSA hydration guidance,health.nutrition
+"Cell phones cause brain cancer.",REFUTED,IARC/WHO EMF studies,health.oncology
+"Cracking knuckles causes arthritis.",REFUTED,Clinical orthopedics research,health.musculoskeletal
+"The COVID-19 pandemic was planned by a global elite.",REFUTED,WHO pandemic preparedness records,politics.conspiracy
+"Hydroxychloroquine cures COVID-19.",REFUTED,WHO Solidarity trial results,health.infectious_disease
+"Climate change is not caused by humans.",REFUTED,IPCC AR6 synthesis report,science.climate
+"Evolution is just a theory with no evidence.",REFUTED,NCBI evolutionary biology literature,science.biology
+"The moon landing was faked.",REFUTED,NASA/LRO lunar surface imaging,science.astronomy
+"Fluoride in drinking water causes IQ reduction.",REFUTED,WHO water quality guidelines,health.public_health
+"Washing hands does not prevent disease transmission.",REFUTED,CDC hand hygiene evidence review,health.public_health
+"Herbal supplements have no side effects.",REFUTED,WHO traditional medicine safety report,health.pharmacology
+"GMO foods cause cancer.",REFUTED,WHO/FAO biotechnology safety assessment,health.nutrition
+"Autism rates are increasing due to vaccines.",REFUTED,CDC vaccine safety datalink studies,health.vaccines
+"Smoking only harms the smoker.",REFUTED,WHO secondhand smoke report,health.tobacco
+"Alcohol in moderation is beneficial to heart health.",REFUTED,Lancet GBD alcohol study,health.cardiovascular
+"Children cannot transmit COVID-19.",REFUTED,CDC pediatric transmission data,health.infectious_disease
+"The human appendix has no function.",REFUTED,Journal of evolutionary biology,science.anatomy
+"Reading in dim light permanently damages eyes.",REFUTED,AAO ophthalmology review,health.ophthalmology
+"Eating breakfast boosts metabolism significantly.",REFUTED,NIH dietary pattern research,health.nutrition
+"Organic food is nutritionally superior to conventional.",REFUTED,Stanford systematic review on organic food,health.nutrition
+"Mental illness is caused by personal weakness.",REFUTED,APA/NIMH neuroscience evidence,health.mental_health
+"Suicide rates are highest in winter.",REFUTED,WHO seasonal suicide data,health.mental_health
+"Opioids are not addictive when prescribed by doctors.",REFUTED,CDC opioid prescribing guidelines,health.pharmacology
+"Herd immunity can be achieved without vaccines.",REFUTED,WHO immunization strategy documents,health.vaccines
+"Exercise worsens asthma.",REFUTED,GINA asthma management guidelines,health.respiratory
+"Face masks are ineffective against respiratory viruses.",REFUTED,Cochrane review on physical interventions,health.infectious_disease
+"Salt intake has no effect on blood pressure.",REFUTED,WHO sodium intake guidelines,health.cardiovascular
+"Water fluoridation is a government mind control tactic.",REFUTED,CDC/WHO fluoridation safety evidence,politics.conspiracy
