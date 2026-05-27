@@ -11,7 +11,18 @@
     ],
     "scripts": {
       "test": [
-        "echo \"Error: no test specified\" && exit 1"
+        "uv run pytest"
+      ],
+      "lint": [
+        "uv run ruff check wobsongo/ tests/"
+      ],
+      "typecheck": [
+        "uv run mypy wobsongo/"
+      ],
+      "check": [
+        "uv run ruff check wobsongo/ tests/",
+        "uv run mypy wobsongo/",
+        "uv run pytest"
       ]
     }
   }
