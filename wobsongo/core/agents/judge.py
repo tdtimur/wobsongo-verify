@@ -98,11 +98,40 @@ Output format:
 {{"verdict": "SUPPORTED|REFUTED|INSUFFICIENT_EVIDENCE", "confidence": 0.0-1.0, "reasoning": "..."}}
 """
 
+_CHUNK_FALLBACK_PROMPT = """\
+You are a strict fact-checker. Evaluate whether the following claim is supported \
+by the document excerpts below.
+
+Claim: {claim}
+
+Document excerpts:
+{evidence}
+
+Rules:
+- Answer SUPPORTED only if the excerpts directly and clearly confirm the claim.
+- Answer REFUTED only if the excerpts directly and clearly contradict the claim.
+- Answer INSUFFICIENT_EVIDENCE if the excerpts do not clearly address the claim, \
+are only tangentially related, or if you are not fully confident. \
+When in doubt, choose INSUFFICIENT_EVIDENCE — do not speculate or infer \
+beyond what is explicitly stated in the excerpts.
+- Output valid JSON only.
+
+Output format:
+{{"verdict": "SUPPORTED|REFUTED|INSUFFICIENT_EVIDENCE", "confidence": 0.0-1.0, "reasoning": "..."}}
+"""
+
 
 def _format_evidence(chunks: list[DocumentChunk]) -> str:
     if not chunks:
         return "(no evidence retrieved)"
-    return "\n\n".join(f"[{i + 1}] {c.text}" for i, c in enumerate(chunks))
+    parts: list[str] = []
+    seen_titles: dict[str, int] = {}
+    for c in chunks:
+        label = c.source_doc_title or str(c.source_doc_id)
+        if label not in seen_titles:
+            seen_titles[label] = len(seen_titles) + 1
+        parts.append(f"[{label}, p.{c.page}] {c.text}")
+    return "\n\n".join(parts)
 
 
 def _insufficient(claim: str, reason: str) -> ClaimVerdict:
@@ -151,7 +180,10 @@ class NLIJudge:
     ) -> ClaimVerdict:
         """Produce a ClaimVerdict for one atomic claim."""
         if not facts:
-            return _insufficient(claim, "No verified facts found for this claim.")
+            if not chunks:
+                return _insufficient(claim, "No relevant evidence found in the knowledge base.")
+            # fall back to reasoning directly from retrieved chunks
+            return await self._judge_from_chunks(claim, chunks)
 
         # use the first fact's tier — retrieval already scoped by topic
         best_fact = facts[0]
@@ -162,8 +194,24 @@ class NLIJudge:
             claim=claim,
             chunks=chunks,
             facts=facts,
-        evidence_ids=list(evidence_ids),
+            evidence_ids=list(evidence_ids),
         )
+
+    async def _judge_from_chunks(
+        self,
+        claim: str,
+        chunks: list[DocumentChunk],
+    ) -> ClaimVerdict:
+        """Assess a claim from raw chunks when no structured facts exist.
+
+        The LLM is explicitly instructed to prefer INSUFFICIENT_EVIDENCE
+        over speculation — this path must never manufacture confidence.
+        """
+        evidence_text = _format_evidence(chunks)
+        prompt = _CHUNK_FALLBACK_PROMPT.format(claim=claim, evidence=evidence_text)
+        raw = await self._llm.generate_json(prompt, _VERDICT_SCHEMA)
+        evidence_ids = [c.id for c in chunks]
+        return _parse_verdict(claim, raw, tier=None, evidence_ids=evidence_ids)
 
     async def _route_by_tier(
         self,

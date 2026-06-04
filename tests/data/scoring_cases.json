@@ -1,0 +1,72 @@
+[
+  {
+    "id": "clinical_dosage_recommendation",
+    "text": "For females with infertility due to ovulatory dysfunction caused by PCOS, WHO suggests using letrozole 2.5mg daily for 5 days over clomiphene citrate. (Conditional recommendation, low certainty of evidence)",
+    "min_score": 0.75,
+    "max_score": 1.0,
+    "note": "Clinical recommendation with dosage, named entities, relational language, and numerals. Should score very high."
+  },
+  {
+    "id": "statistical_finding",
+    "text": "A systematic review of 14 randomised controlled trials found that IVF success rates were significantly higher in women aged under 35 years compared to women aged 35-40 years.",
+    "min_score": 0.55,
+    "max_score": 1.0,
+    "note": "Named entities, numeral, comparative language. No measurement units. Should score moderately high."
+  },
+  {
+    "id": "general_background_statement",
+    "text": "Infertility is a common condition that affects many couples around the world and has significant social and psychological consequences.",
+    "min_score": 0.0,
+    "max_score": 0.45,
+    "note": "Generic background prose. No units, no specific numerals, no named entities. Should score low."
+  },
+  {
+    "id": "foreword_prose",
+    "text": "This guideline aims to provide evidence-based recommendations to support countries in delivering high-quality, equitable and effective fertility care.",
+    "min_score": 0.0,
+    "max_score": 0.45,
+    "note": "Introductory/mission statement prose. Relational language present but no specifics. Should score low."
+  },
+  {
+    "id": "toc_entry",
+    "text": "Foreword vi Acknowledgements vii Abbreviations x Executive summary xi",
+    "min_score": 0.0,
+    "max_score": 0.25,
+    "note": "Table of contents fragment. Should score very low — no relational structure, no units."
+  },
+  {
+    "id": "page_number_noise",
+    "text": "iv",
+    "min_score": 0.0,
+    "max_score": 0.15,
+    "note": "Roman numeral page number. Below minimum length threshold for length signal."
+  },
+  {
+    "id": "reference_entry",
+    "text": "Zegers-Hochschild F, Adamson GD, de Mouzon J et al. The international committee for monitoring assisted reproductive technology. Hum Reprod. 2009;24(11):2683-7.",
+    "min_score": 0.3,
+    "max_score": 0.8,
+    "note": "Reference entry with named entities and numerals but no causal/relational language. Medium score."
+  },
+  {
+    "id": "lab_result_with_units",
+    "text": "Serum FSH levels above 10 IU/L on day 3 of the menstrual cycle are associated with diminished ovarian reserve.",
+    "min_score": 0.6,
+    "max_score": 1.0,
+    "note": "Units (IU/L), numeral, named entity proxy, relational language. Should score high."
+  },
+  {
+    "id": "empty_string",
+    "text": "",
+    "min_score": 0.0,
+    "max_score": 0.0,
+    "note": "Empty string must return exactly 0.0."
+  },
+  {
+    "id": "whitespace_only",
+    "text": "   \n\t  ",
+    "min_score": 0.0,
+    "max_score": 0.0,
+    "note": "Whitespace-only input must return exactly 0.0."
+  }
+]

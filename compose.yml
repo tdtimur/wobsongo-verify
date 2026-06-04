@@ -1,0 +1,83 @@
+name: "wobsongo-verify"
+services:
+  minio:
+    image: quay.io/minio/minio
+    ports:
+      - "9001:9000" # S3 API
+      - "9002:9001" # Web UI
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - wobsongo-miniodata:/data
+    networks:
+      netwobsongo:
+  bugsink:
+    image: bugsink/bugsink:2.1
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - wobsongo-bugsinkdata:/data
+    networks:
+      netwobsongo:
+    ports:
+      - "8082:8000"
+    environment:
+      SECRET_KEY: yMLYThim9NybWgXiUGat32Aa0Qbgqscf4NPDQuZO2glcZPAiXn
+      CREATE_SUPERUSER: wobsongo:LocalDev123
+      PORT: 8000
+      BEHIND_HTTPS_PROXY: "false"
+      USE_X_FORWARDED_HOST: "false"
+      BASE_URL: "http://localhost:8080"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          'python -c ''import requests; requests.get("http://localhost:8000/").raise_for_status()''',
+        ]
+      interval: 5s
+      timeout: 20s
+      retries: 10
+
+  ollama:
+    build:
+      context: .
+      dockerfile: ollama.Dockerfile
+    environment:
+      OLLAMA_API_KEY: ${OLLAMA_API_KEY}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-gemma4:31b-cloud}
+      OLLAMA_EMBED_MODEL: ${OLLAMA_EMBED_MODEL:-embeddinggemma:300m}
+    volumes:
+      - wobsongo-ollamadata:/root/.ollama
+    ports:
+      - "11434:11434"
+    networks:
+      netwobsongo:
+
+  worker:
+    build:
+      context: .
+      dockerfile: worker.Dockerfile
+    env_file: .env
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+      WOBSONGO_DB_PATH: /data/wobsongo.db
+    volumes:
+      - wobsongo-data:/data
+    depends_on:
+      - ollama
+      - minio
+    networks:
+      netwobsongo:
+
+volumes:
+  wobsongo-miniodata:
+  wobsongo-bugsinkdata:
+  wobsongo-ollamadata:
+  wobsongo-data:
+
+networks:
+  netwobsongo:

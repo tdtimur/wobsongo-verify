@@ -1,24 +1,15 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.16.0/.schema/devbox.schema.json",
-  "packages": [
-    "uv@0.9.21",
-    "python@3.14.2",
-    "ruff@0.14.9"
-  ],
+  "env": {
+    "TESSDATA_PREFIX": "./tessdata"
+  },
+  "packages": ["uv@0.9.21", "python@3.14.2", "ruff@0.14.9"],
   "shell": {
-    "init_hook": [
-      "echo 'Welcome to devbox!' > /dev/null"
-    ],
+    "init_hook": ["echo 'Welcome to devbox!' > /dev/null"],
     "scripts": {
-      "test": [
-        "uv run pytest"
-      ],
-      "lint": [
-        "uv run ruff check wobsongo/ tests/"
-      ],
-      "typecheck": [
-        "uv run mypy wobsongo/"
-      ],
+      "test": ["uv run pytest"],
+      "lint": ["uv run ruff check wobsongo/ tests/"],
+      "typecheck": ["uv run mypy wobsongo/"],
       "check": [
         "uv run ruff check wobsongo/ tests/",
         "uv run mypy wobsongo/",
