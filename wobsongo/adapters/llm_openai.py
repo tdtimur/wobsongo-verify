@@ -18,6 +18,9 @@ from __future__ import annotations
 
 import json
 import os
+from typing import Any
+
+_TIMEOUT = float(os.getenv("OPENAI_TIMEOUT", "60"))
 
 
 class OpenAILLMClient:
@@ -34,7 +37,7 @@ class OpenAILLMClient:
         self._base_url = base_url or os.environ.get("OPENAI_BASE_URL")
         self._client: object | None = None  # lazy
 
-    def _get_client(self) -> object:
+    def _get_client(self) -> Any:
         if self._client is None:
             try:
                 from openai import AsyncOpenAI  # type: ignore[import-not-found]
@@ -42,7 +45,7 @@ class OpenAILLMClient:
                 raise RuntimeError(
                     "openai not installed. Run: uv sync --extra llm"
                 ) from e
-            kwargs: dict[str, object] = {"api_key": self._api_key}
+            kwargs: dict[str, object] = {"api_key": self._api_key, "timeout": _TIMEOUT}
             if self._base_url:
                 kwargs["base_url"] = self._base_url
             self._client = AsyncOpenAI(**kwargs)
@@ -53,10 +56,7 @@ class OpenAILLMClient:
         prompt: str,
         json_schema: dict[str, object],
     ) -> dict[str, object]:
-        from openai import AsyncOpenAI
-
         client = self._get_client()
-        assert isinstance(client, AsyncOpenAI)
         system_msg = (
             "You are a precise fact-checking assistant. "
             "Always respond with valid JSON matching the provided schema. "
@@ -72,5 +72,8 @@ class OpenAILLMClient:
             temperature=0.0,
         )
         raw: str = response.choices[0].message.content or "{}"
-        result: dict[str, object] = json.loads(raw)
+        try:
+            result: dict[str, object] = json.loads(raw)
+        except json.JSONDecodeError:
+            result = {}
         return result

@@ -6,14 +6,20 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "litestar>=2.0",
+    "PyJWT>=2.8",
+    "bcrypt>=4.0",
+    "python-dotenv>=1.0",
 ]
 
 [project.optional-dependencies]
-embed = ["sentence-transformers>=3.0"]
-db    = ["sqlite-vec>=0.1"]
-pdf   = ["pymupdf4llm>=0.0.17"]
-llm   = ["openai>=1.0"]
-docs  = ["mkdocs>=1.6.1", "mkdocs-material>=9.7.1"]
+embed    = ["sentence-transformers>=3.0"]
+db       = ["sqlite-vec>=0.1"]
+pdf      = ["liteparse>=2.0.0", "pypdf>=4.0"]
+llm      = ["openai>=1.0"]
+ollama   = ["ollama>=0.4"]
+telegram = ["python-telegram-bot>=21.0"]
+storage  = ["boto3>=1.34"]
+docs     = ["mkdocs>=1.6.1", "mkdocs-material>=9.7.1"]
 
 [dependency-groups]
 dev = [
@@ -25,7 +31,7 @@ dev = [
 
 [tool.ruff]
 line-length = 100
-target-version = "py311"
+target-version = "py314"
 
 [tool.ruff.lint]
 select = [
@@ -43,11 +49,26 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "wobsongo/api/app.py" = ["B008"]  # Litestar uses Body() in param defaults by design
+"bot.py"    = ["E402", "I001"]   # sys.path.insert + load_dotenv must precede imports
+"worker.py" = ["E402", "I001"]
+"parser.py" = ["E402", "I001"]
 
 
 [tool.mypy]
 strict = true
 packages = ["wobsongo"]
+
+[[tool.mypy.overrides]]
+module = "sqlite_vec"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "boto3"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "botocore.*"
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

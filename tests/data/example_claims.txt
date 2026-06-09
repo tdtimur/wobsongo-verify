@@ -1,0 +1,22 @@
+# Example social media claims for testing the Wobsongo fact-checker
+# Source document: WHO Guideline for the prevention, diagnosis and treatment of infertility
+#
+# Categories: SUPPORTED / REFUTED / INSUFFICIENT_EVIDENCE (expected verdict)
+
+# --- Likely SUPPORTED ---
+Letrozole is better than clomiphene citrate for treating infertility in women with PCOS.
+WHO recommends surgical treatment for males with infertility and clinical varicocele.
+Women with hydrosalpinx should have it treated before undergoing IVF.
+
+# --- Likely REFUTED or nuanced ---
+Antioxidant supplements improve fertility outcomes for infertile men.
+Metformin alone is the preferred first-line treatment for PCOS-related infertility.
+Clomiphene citrate is recommended over letrozole for ovulation induction in PCOS.
+
+# --- Likely INSUFFICIENT_EVIDENCE ---
+IVF has a 60% success rate in women under 35.
+Obesity has no impact on fertility treatment outcomes.
+
+# --- Tricky / mixed ---
+Letrozole should always be combined with metformin for best results in PCOS.
+Varicocele surgery improves live birth rates in all infertile men regardless of semen parameters.

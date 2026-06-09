@@ -1,0 +1,56 @@
+# Test claims for the Wobsongo fact-checker bot
+# Source: WHO Guideline for the prevention, diagnosis and treatment of infertility
+# Paste any of these into Telegram to test the bot.
+# Expected verdict is noted as a hint — actual result depends on retrieved chunks.
+
+# ── Likely SUPPORTED ──────────────────────────────────────────────────────────
+
+Letrozole is more effective than clomiphene citrate for ovulation induction in women with PCOS.
+
+Women with PCOS who want to conceive should try lifestyle changes before starting medication.
+
+Surgical treatment is recommended for men with clinical varicocele and infertility.
+
+Women with hydrosalpinx should have the tube removed or blocked before starting IVF.
+
+Unexplained infertility is a recognised diagnosis when no cause is found after standard investigation.
+
+Both partners should be evaluated when a couple has difficulty conceiving.
+
+Sperm analysis is one of the first tests recommended when investigating male infertility.
+
+Ovarian stimulation carries a risk of ovarian hyperstimulation syndrome.
+
+# ── Likely REFUTED ────────────────────────────────────────────────────────────
+
+Clomiphene citrate is preferred over letrozole for treating anovulatory infertility in PCOS.
+
+Antioxidant supplements are proven to significantly improve live birth rates in infertile men.
+
+Metformin alone is as effective as letrozole for achieving pregnancy in PCOS women.
+
+Varicocele repair improves fertility in all infertile men regardless of semen quality.
+
+IVF should always be the first treatment offered to couples with unexplained infertility.
+
+# ── Likely INSUFFICIENT_EVIDENCE ─────────────────────────────────────────────
+
+Drinking milk reduces fertility in women over 30.
+
+Stress is the leading cause of infertility worldwide.
+
+IVF has a 60% success rate in women under 35.
+
+Eating pineapple core improves embryo implantation after IVF.
+
+Intermittent fasting cures PCOS-related infertility without medication.
+
+Acupuncture is as effective as letrozole for treating infertility in PCOS.
+
+# ── Mixed / nuanced ───────────────────────────────────────────────────────────
+
+Letrozole combined with metformin always gives better pregnancy rates than letrozole alone in PCOS.
+
+All women with PCOS should take metformin before trying to conceive.
+
+Laparoscopic ovarian drilling is a safe alternative to gonadotrophins in PCOS women who fail clomiphene.
